@@ -1,0 +1,9 @@
+name: msrd4-hypergraph-rgvq-distill
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - -r requirements.txt
