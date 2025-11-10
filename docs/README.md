@@ -68,8 +68,13 @@ msrd4-hypergraph-rgvq-distill/
    scripts/run_all.sh
    ```
 
-   This runs the teacher, exports Top-K slices, trains both KD variants of the
-   student, evaluates them, and refreshes the report + plots in `docs/`.
+   ```bash
+   python scripts/run_all.py
+   ```
+
+   The Bash and Python launchers execute the same six stages (teacher, distill,
+   students, evaluation, report).  Windows 用户若缺少 Bash/Git Bash，可直接
+   使用 `python scripts/run_all.py`。
 
 3. **Manual steps** (all driven by the CLI `python -m src.main`):
 
