@@ -64,17 +64,22 @@ msrd4-hypergraph-rgvq-distill/
 
 2. **End-to-end demo (default CPU configuration)**
 
-   ```bash
-   scripts/run_all.sh
-   ```
+  ```bash
+  scripts/run_all.sh
+  ```
 
-   ```bash
-   python scripts/run_all.py
-   ```
+  ```bash
+  python scripts/run_all.py
+  ```
 
-   The Bash and Python launchers execute the same six stages (teacher, distill,
-   students, evaluation, report).  Windows 用户若缺少 Bash/Git Bash，可直接
-   使用 `python scripts/run_all.py`。
+  ```powershell
+  python run_all.py
+  ```
+
+  The Bash and Python launchers execute the same six stages (teacher, distill,
+  students, evaluation, report).  Windows 用户若缺少 Bash/Git Bash，可直接
+  使用 `python run_all.py` 或 `python scripts\run_all.py`，避免命令提示符把
+  斜杠解析成开关参数。
 
 3. **Manual steps** (all driven by the CLI `python -m src.main`):
 
