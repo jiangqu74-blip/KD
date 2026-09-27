@@ -1,0 +1,27 @@
+name: default
+device: cpu
+seed: 1
+data:
+  n_nodes: 1200
+  n_edges: 800
+  n_classes: 6
+  feat_dim: 16
+  p_mixed: 0.35
+  min_edge: 3
+  max_edge: 60
+teacher:
+  L: 2
+  hidden_dim: 64
+  K_edge: 128
+  K_node: 128
+  M_levels: 2
+  epochs: 20
+  lr: 0.002
+distill:
+  topk: 3
+student:
+  hidden_dim_student: 64
+  n_layers: 2
+  epochs: 20
+  lr: 0.002
+  topk_weight: 1.0

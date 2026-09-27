@@ -1,0 +1,6 @@
+{
+  "best_val_acc": 1.0,
+  "epochs": 20,
+  "train_nodes": 720,
+  "val_nodes": 240
+}
