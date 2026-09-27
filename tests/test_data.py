@@ -29,9 +29,11 @@ def test_make_synth_hypergraph_shapes() -> None:
         assert mask.dtype == bool
         assert mask.shape == (120,)
     # Masks should form a partition of the node set.
-    combined = out["train_mask"].astype(int) + out["val_mask"].astype(int) + out[
-        "test_mask"
-    ].astype(int)
+    combined = (
+        out["train_mask"].astype(int)
+        + out["val_mask"].astype(int)
+        + out["test_mask"].astype(int)
+    )
     assert np.all(combined == 1)
 
 

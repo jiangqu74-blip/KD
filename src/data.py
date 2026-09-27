@@ -80,7 +80,7 @@ def make_synth_hypergraph(
     max_edge: int = 60,
     seed: int = 1,
 ) -> Dict[str, np.ndarray]:
-    """Construct a synthetic hypergraph with long-tailed hyperedge sizes.
+    r"""Construct a synthetic hypergraph with long-tailed hyperedge sizes.
 
     This generator purposely creates *hypergraphs* (not 2-section graphs) by
     sampling an incidence matrix ``H \in {0,1}^{|V|\times|E|}`` directly.  Node
@@ -133,9 +133,7 @@ def make_synth_hypergraph(
     for cls, count in enumerate(nodes_per_class):
         if count == 0:
             continue
-        eps = rng.normal(0.0, cov_scale[cls], size=(count, feat_dim)).astype(
-            np.float32
-        )
+        eps = rng.normal(0.0, cov_scale[cls], size=(count, feat_dim)).astype(np.float32)
         features.append(means[cls] + eps)
         labels.extend([cls] * count)
         start += count
