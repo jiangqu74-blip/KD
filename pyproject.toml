@@ -16,4 +16,7 @@ ignore = []
 [tool.pytest.ini_options]
 addopts = "-ra"
 python_files = ["test_*.py"]
-pythonpath = ["src"]
+testpaths = ["tests"]
+# Tests import the project as the `src` package (`from src import data`), so
+# the repository root must be importable.
+pythonpath = ["."]

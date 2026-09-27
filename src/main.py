@@ -76,6 +76,9 @@ def _load_data_for_teacher(path: Path | None) -> Dict[str, np.ndarray]:
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
+    # The data generator is already seeded; seeding torch as well makes model
+    # initialisation (and therefore results) repeatable for a given --seed.
+    torch.manual_seed(args.seed)
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
