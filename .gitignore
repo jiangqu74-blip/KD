@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# 实验产物：模型权重、缓存数据（大文件，不上传）
+# Large run outputs; the small summaries go to results/ and ARE committed.
+artifacts/
+artifacts_ci/
+*.pt
+*.pth
+*.ckpt
+
+# 数据集通常很大，只上传说明文件
+data/*
+!data/README.md
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

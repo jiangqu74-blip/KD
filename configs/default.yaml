@@ -1,0 +1,36 @@
+# 默认实验配置（default experiment config）
+# 用法：python scripts/run_all.py --config configs/default.yaml
+# 想做新实验：复制这个文件、改名、改参数，再用 --config 指向新文件。
+# 每个键（key）就是 `python -m src.main` 的同名命令行参数（--key）。
+
+name: default   # 实验名：结果保存在 results/<日期-时间>_<name>/
+device: cpu     # cpu；有 NVIDIA 显卡时改成 cuda（或运行时加 --device cuda）
+seed: 1         # 随机种子（random seed）：同一个种子 → 同样的数据和模型初始化
+
+data:           # 合成超图数据（synthetic hypergraph），由教师训练步骤生成
+  n_nodes: 1200   # 节点数 |V|
+  n_edges: 800    # 超边数 |E|（hyperedge：一条边可以连任意多个节点）
+  n_classes: 6    # 类别数
+  feat_dim: 16    # 节点特征维度（feature dimension）
+  p_mixed: 0.35   # 混合超边（成员来自不同类别）的比例
+  min_edge: 3     # 一条超边最少包含几个节点
+  max_edge: 60    # 一条超边最多包含几个节点
+
+teacher:        # 教师模型 TeacherHGNN：能看到超图结构
+  L: 2            # stage 数：N2E → Tap-E → E2N → Tap-N 重复几次
+  hidden_dim: 64  # 隐藏层维度（hidden dimension）
+  K_edge: 128     # 超边角色码本（codebook）大小
+  K_node: 128     # 节点角色码本大小
+  M_levels: 2     # RGVQ 残差量化层数（levels）
+  epochs: 20      # 训练轮数
+  lr: 0.002       # 学习率（learning rate）
+
+distill:        # 从教师导出蒸馏包（distillation package）
+  topk: 3         # 每个节点保留概率最高的 K 个角色（Top-K）
+
+student:        # 学生模型 StudentMLP：0-hop，只看节点特征，看不到超图
+  hidden_dim_student: 64
+  n_layers: 2     # MLP 层数
+  epochs: 20
+  lr: 0.002
+  topk_weight: 1.0  # KD+TopK 方法里角色损失（role loss）的权重

@@ -1,3 +1,0 @@
-pytest -q
-.........                                                                                                                [100%]
-9 passed in 5.36s

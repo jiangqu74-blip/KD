@@ -1,0 +1,36 @@
+# 快速冒烟测试（smoke test）：几十秒，只检查整个流程能不能跑通，结果没有参考价值。
+# 用法：python scripts/run_all.py --config configs/quick.yaml
+# CI（GitHub 上的自动检查）每次也会跑这个配置。
+# 各参数含义见 configs/default.yaml 里的注释。
+
+name: quick
+device: cpu
+seed: 1
+
+data:
+  n_nodes: 200
+  n_edges: 150
+  n_classes: 3
+  feat_dim: 8
+  p_mixed: 0.3
+  min_edge: 3
+  max_edge: 20
+
+teacher:
+  L: 1
+  hidden_dim: 32
+  K_edge: 16
+  K_node: 16
+  M_levels: 1
+  epochs: 2
+  lr: 0.005
+
+distill:
+  topk: 3
+
+student:
+  hidden_dim_student: 32
+  n_layers: 2
+  epochs: 2
+  lr: 0.005
+  topk_weight: 1.0

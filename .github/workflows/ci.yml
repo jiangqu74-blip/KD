@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: ["main", "feat/**", "work"]
+    branches: ["main", "claude/**", "feat/**", "work"]
   pull_request:
     branches: ["main"]
 
@@ -17,24 +17,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          # CPU-only PyTorch: a much smaller download than the default CUDA build.
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
       - name: Lint
         run: |
-          ruff check src tests
-          black --check src tests
+          ruff check src tests scripts
+          black --check src tests scripts
       - name: Pytest
         run: pytest -q
-      - name: Smoke pipeline (reduced config)
-        env:
-          OUT_DIR: artifacts_ci
+      - name: Smoke run of the full pipeline (configs/quick.yaml)
         run: |
-          python -m src.main --mode train_teacher --out_dir $OUT_DIR --device cpu \
-            --L 1 --hidden_dim 32 --K_edge 16 --K_node 16 --M_levels 1 --epochs 2 --lr 5e-3 \
-            --n_nodes 200 --n_edges 150 --feat_dim 8 --n_classes 3 --max_edge 20 --min_edge 3 --p_mixed 0.3
-          python -m src.main --mode export_distill --out_dir $OUT_DIR --device cpu
-          python -m src.main --mode train_student --ablation kd --out_dir $OUT_DIR --device cpu \
-            --epochs 2 --lr 5e-3 --hidden_dim_student 32
-          python -m src.main --mode train_student --ablation kd_topk --out_dir $OUT_DIR --device cpu \
-            --epochs 2 --lr 5e-3 --hidden_dim_student 32
-          python -m src.main --mode eval --out_dir $OUT_DIR --device cpu
-          python scripts/update_report.py --out_dir $OUT_DIR --report docs/REPORT.md --plot_target docs/student_ablation.png
+          python scripts/run_all.py --config configs/quick.yaml \
+            --artifacts_root "$RUNNER_TEMP/artifacts" --results_root "$RUNNER_TEMP/results"

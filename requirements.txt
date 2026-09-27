@@ -3,7 +3,10 @@ scikit-learn
 torch
 tqdm
 matplotlib
+pyyaml
 pytest
 pytest-cov
-black
-ruff
+# Style checkers are pinned so CI does not start failing when a new release
+# changes the rules. Upgrade them deliberately (then run `make format`).
+black==26.5.1
+ruff==0.16.9
