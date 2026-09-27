@@ -20,7 +20,7 @@ def plot_student_comparison(results: Dict[str, float], out_path: str | Path) -> 
 
     plt.figure(figsize=(6, 4))
     bars = plt.bar(names, values, color=["#4c72b0", "#55a868"])
-    plt.ylim(0, 1)
+    plt.ylim(0, 1.1)  # headroom so a label above a 1.0 bar clears the title
     plt.ylabel("Accuracy")
     plt.title("Student Ablation Comparison")
     for bar, value in zip(bars, values, strict=True):
